@@ -71,3 +71,18 @@ func SumarMantenimientos(mantenimientos []Mantenimiento, c chan float64) {
 
 	c <- precioTotal
 }
+
+func main() {
+
+	// c1 := make(chan float64)
+	// c2 := make(chan float64)
+	// c3 := make(chan float64)
+	// go SumarProductos(p, c1)
+	// go SumarServicios(s, c2)
+	// go SumarMantenimientos(m, c3)
+
+	// v1 := <-c1
+	// v2 := <-c2
+	// v3 := <-c3
+
+}
