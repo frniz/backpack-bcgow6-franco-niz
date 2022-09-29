@@ -25,6 +25,8 @@
 
 package main
 
+import "fmt"
+
 const (
 	Grande  = "Grande"
 	Mediano = "Mediano"
@@ -85,4 +87,11 @@ func (p producto) CalcularCosto() (total float64) {
 	}
 
 	return
+}
+
+func main() {
+
+	producto := nuevoProducto(Pequeño, "Franco", 25.6)
+	fmt.Println(producto)
+
 }

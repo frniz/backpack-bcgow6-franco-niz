@@ -19,7 +19,7 @@ import (
 
 func ImprimirProductos() {
 
-	f, err := os.ReadFile("productos.txt")
+	f, err := os.ReadFile("productos.csv")
 
 	if err != nil {
 		panic(err)

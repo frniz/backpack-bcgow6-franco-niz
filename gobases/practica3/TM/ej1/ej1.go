@@ -13,7 +13,7 @@ import (
 
 func leerProducto() {
 
-	f, err := os.OpenFile("productos.txt", os.O_APPEND|os.O_WRONLY, 0644)
+	f, err := os.OpenFile("productos.csv", os.O_APPEND|os.O_WRONLY, 0644)
 
 	if err != nil {
 		panic(err)

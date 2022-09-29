@@ -24,7 +24,7 @@ func (m *Matrix) Set(cantColum int, values ...float64) {
 	m.Ancho = cantColum
 	m.EsCuadratica = cantColum == 5
 
-	for i := 0; i < cantColum; i++ {
+	for i := 0; i < m.Alto; i++ {
 
 		m.Matriz[i] = make([]float64, cantColum)
 
@@ -33,17 +33,18 @@ func (m *Matrix) Set(cantColum int, values ...float64) {
 	var iColum, iFila int
 	var maximo float64
 	for _, v := range values {
+		if iColum < cantColum {
+			if v > maximo {
+				maximo = v
+			}
 
-		if v > maximo {
-			maximo = v
-		}
+			m.Matriz[iFila][iColum] = v
+			iColum++
 
-		m.Matriz[iFila][iColum] = v
-		iColum++
-
-		if iColum%cantColum == 0 {
-			iColum = 0
-			iFila++
+			if (iColum % cantColum) == 0 {
+				iColum = 0
+				iFila++
+			}
 		}
 
 	}
