@@ -1,0 +1,12 @@
+[
+        {
+            "id": 0,
+            "code": "alguncode",
+            "currency":"",
+            "price":0.0,
+            "emitter":"",
+            "receiver":"",
+            "date":"dd/mm/yyyy"
+        }
+    ]
+    
