@@ -30,27 +30,27 @@ var Transactions []Transaction
 func EntityReceiver(c *gin.Context) {
 	var transaction Transaction
 	if err := c.ShouldBind(&transaction); err != nil {
-		var message string
-		if transaction.Code == "" {
-			message = message + fmt.Sprintf("El campo Code es requerido. ")
-		}
-		if transaction.Currency == "" {
-			message = message + fmt.Sprintf("El campo Currency es requerido. ")
-		}
-		if transaction.Price == 0 {
-			message = message + fmt.Sprintf("El campo Price es requerido. ")
-		}
-		if transaction.Emitter == "" {
-			message = message + fmt.Sprintf("El campo Emitter es requerido. ")
-		}
-		if transaction.Receiver == "" {
-			message = message + fmt.Sprintf("El campo Receiver es requerido. ")
-		}
-		if transaction.Date == "" {
-			message = message + fmt.Sprintf("El campo Date es requerido. ")
-		}
+		//var message string
+		// if transaction.Code == "" {
+		// 	message = message + fmt.Sprintf("El campo Code es requerido. ")
+		// }
+		// if transaction.Currency == "" {
+		// 	message = message + fmt.Sprintf("El campo Currency es requerido. ")
+		// }
+		// if transaction.Price == 0 {
+		// 	message = message + fmt.Sprintf("El campo Price es requerido. ")
+		// }
+		// if transaction.Emitter == "" {
+		// 	message = message + fmt.Sprintf("El campo Emitter es requerido. ")
+		// }
+		// if transaction.Receiver == "" {
+		// 	message = message + fmt.Sprintf("El campo Receiver es requerido. ")
+		// }
+		// if transaction.Date == "" {
+		// 	message = message + fmt.Sprintf("El campo Date es requerido. ")
+		// }
 
-		c.String(400, message)
+		c.String(400, err.Error())
 		return
 	}
 
