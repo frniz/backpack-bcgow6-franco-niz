@@ -108,14 +108,3 @@ func (c *Transaction) Store() gin.HandlerFunc {
 		ctx.JSON(http.StatusOK, t)
 	}
 }
-
-func main() {
-	repo := transactions.NewRepository()
-	service := transactions.NewService(repo)
-	t := handlder.NewTransaction(service)
-
-	r := gin.Default()
-	tr := r.Group("/transactions")
-	tr.POST("/", t.Store())
-	tr.GET("/", t.GetAll())
-}
