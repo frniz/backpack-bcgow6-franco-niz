@@ -1,4 +1,4 @@
-package controller
+package handler
 
 // Se debe separar la estructura del proyecto, como segundo paso se debe generar el paquete server donde se agregaran las
 // funcionalidades del proyecto que dependan de paquetes externos y el main del programa.
