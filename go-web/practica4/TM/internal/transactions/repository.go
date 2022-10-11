@@ -1,7 +1,7 @@
 package internal
 
 import (
-	"backpack-bcgow6-franco-niz/go-web/practica3/TT/pkg/store"
+	"backpack-bcgow6-franco-niz/go-web/practica4/TM/pkg/store"
 	"fmt"
 )
 
