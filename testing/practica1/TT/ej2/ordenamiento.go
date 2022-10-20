@@ -1,7 +1,8 @@
 package ej2
 
 func OrdenarSliceDeEnteros(sliceDado []int) []int {
-	slice := sliceDado
+	var slice []int
+	slice = append(slice, sliceDado...)
 	for i, v1 := range slice {
 		min := v1
 		for j := i; j < len(slice); j++ {
