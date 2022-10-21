@@ -1,0 +1,20 @@
+[
+  {
+    "id": 3,
+    "code": "code2",
+    "currency": "dolares",
+    "price": 405.2,
+    "emitter": "MeLi",
+    "receiver": "MeLi",
+    "date": "09/10"
+  },
+  {
+    "id": 4,
+    "code": "code4",
+    "currency": "dolares",
+    "price": 405.2,
+    "emitter": "MeLi",
+    "receiver": "MeLi",
+    "date": "09/10"
+  }
+]

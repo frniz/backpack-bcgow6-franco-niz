@@ -1,15 +1,16 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 
-	handler "backpack-bcgow6-franco-niz/testing/practica2/TM/ej1/cmd/server/handler"
-	"backpack-bcgow6-franco-niz/testing/practica2/TM/ej1/docs"
-	transactions "backpack-bcgow6-franco-niz/testing/practica2/TM/ej1/internal/transactions"
-	"backpack-bcgow6-franco-niz/testing/practica2/TM/ej1/pkg/store"
+	handler "backpack-bcgow6-franco-niz/testing/practica3/TM/ej1/cmd/server/handler"
+	"backpack-bcgow6-franco-niz/testing/practica3/TM/ej1/docs"
+	transactions "backpack-bcgow6-franco-niz/testing/practica3/TM/ej1/internal/transactions"
+	"backpack-bcgow6-franco-niz/testing/practica3/TM/ej1/pkg/store"
 
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -43,5 +44,8 @@ func main() {
 	tr.PUT("/:id", t.Update())
 	tr.PATCH("/:id", t.PartialUpdate())
 	tr.DELETE("/:id", t.Delete())
-	r.Run()
+	err := r.Run()
+	if err != nil {
+		fmt.Println(err.Error())
+	}
 }

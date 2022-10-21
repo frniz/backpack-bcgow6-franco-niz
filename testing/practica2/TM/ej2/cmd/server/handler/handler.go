@@ -1,8 +1,8 @@
 package handler
 
 import (
-	transactions "backpack-bcgow6-franco-niz/go-web/practica4/TT/internal/transactions"
-	"backpack-bcgow6-franco-niz/go-web/practica4/TT/pkg/web"
+	transactions "backpack-bcgow6-franco-niz/testing/practica2/TM/ej2/internal/transactions"
+	"backpack-bcgow6-franco-niz/testing/practica2/TM/ej2/pkg/web"
 	"fmt"
 	"net/http"
 	"os"

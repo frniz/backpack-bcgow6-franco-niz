@@ -6,10 +6,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 
-	handler "backpack-bcgow6-franco-niz/go-web/practica4/TT/cmd/server/handler"
-	"backpack-bcgow6-franco-niz/go-web/practica4/TT/docs"
-	transactions "backpack-bcgow6-franco-niz/go-web/practica4/TT/internal/transactions"
-	"backpack-bcgow6-franco-niz/go-web/practica4/TT/pkg/store"
+	handler "backpack-bcgow6-franco-niz/testing/practica2/TM/ej2/cmd/server/handler"
+	"backpack-bcgow6-franco-niz/testing/practica2/TM/ej2/docs"
+	transactions "backpack-bcgow6-franco-niz/testing/practica2/TM/ej2/internal/transactions"
+	"backpack-bcgow6-franco-niz/testing/practica2/TM/ej2/pkg/store"
 
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"

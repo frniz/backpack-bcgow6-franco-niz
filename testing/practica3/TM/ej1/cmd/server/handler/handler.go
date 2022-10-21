@@ -1,14 +1,18 @@
 package handler
 
 import (
-	transactions "backpack-bcgow6-franco-niz/testing/practica2/TM/ej1/internal/transactions"
-	"backpack-bcgow6-franco-niz/testing/practica2/TM/ej1/pkg/web"
+	transactions "backpack-bcgow6-franco-niz/testing/practica3/TM/ej1/internal/transactions"
+	"backpack-bcgow6-franco-niz/testing/practica3/TM/ej1/pkg/web"
 	"fmt"
 	"net/http"
 	"os"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+)
+
+const (
+	TokenError = "token invalido"
 )
 
 type request struct {
@@ -84,11 +88,11 @@ func (c *Transaction) Store() gin.HandlerFunc {
 		if err := ctx.ShouldBindJSON(&req); err != nil {
 			var message string
 			if req.Code == "" {
-				message = message + fmt.Sprintf("El campo Code es requerido. ")
+				message = message + "El campo Code es requerido. "
 			}
 
 			if req.Price == 0 {
-				message = message + fmt.Sprintf("El campo Price es requerido. ")
+				message = message + "El campo Price es requerido. "
 			}
 
 			ctx.JSON(400, web.NewResponse(400, nil, message))
@@ -97,16 +101,16 @@ func (c *Transaction) Store() gin.HandlerFunc {
 
 		var message string
 		if req.Currency == "" {
-			message = message + fmt.Sprintf("El campo Currency es requerido. ")
+			message = message + "El campo Currency es requerido. "
 		}
 		if req.Emitter == "" {
-			message = message + fmt.Sprintf("El campo Emitter es requerido. ")
+			message = message + "El campo Emitter es requerido. "
 		}
 		if req.Receiver == "" {
-			message = message + fmt.Sprintf("El campo Receiver es requerido. ")
+			message = message + "El campo Receiver es requerido. "
 		}
 		if req.Date == "" {
-			message = message + fmt.Sprintf("El campo Date es requerido. ")
+			message = message + "El campo Date es requerido. "
 		}
 		if message != "" {
 			ctx.JSON(400, web.NewResponse(400, nil, message))
@@ -153,11 +157,11 @@ func (c *Transaction) Update() gin.HandlerFunc {
 		if err := ctx.ShouldBindJSON(&req); err != nil {
 			var message string
 			if req.Code == "" {
-				message = message + fmt.Sprintf("El campo Code es requerido. ")
+				message = message + "El campo Code es requerido. "
 			}
 
 			if req.Price == 0 {
-				message = message + fmt.Sprintf("El campo Price es requerido. ")
+				message = message + "El campo Price es requerido. "
 			}
 
 			ctx.String(400, message)
@@ -166,16 +170,16 @@ func (c *Transaction) Update() gin.HandlerFunc {
 
 		var message string
 		if req.Currency == "" {
-			message = message + fmt.Sprintf("El campo Currency es requerido. ")
+			message = message + "El campo Currency es requerido. "
 		}
 		if req.Emitter == "" {
-			message = message + fmt.Sprintf("El campo Emitter es requerido. ")
+			message = message + "El campo Emitter es requerido. "
 		}
 		if req.Receiver == "" {
-			message = message + fmt.Sprintf("El campo Receiver es requerido. ")
+			message = message + "El campo Receiver es requerido. "
 		}
 		if req.Date == "" {
-			message = message + fmt.Sprintf("El campo Date es requerido. ")
+			message = message + "El campo Date es requerido. "
 		}
 		if message != "" {
 			ctx.String(400, message)
@@ -222,10 +226,10 @@ func (c *Transaction) PartialUpdate() gin.HandlerFunc {
 		if err := ctx.ShouldBindJSON(&req); err != nil {
 			var message string
 			if req.Code == "" {
-				message = message + fmt.Sprintf("El campo Code es requerido. ")
+				message = message + "El campo Code es requerido. "
 			}
 			if req.Price == 0 {
-				message = message + fmt.Sprintf("El campo Price es requerido. ")
+				message = message + "El campo Price es requerido. "
 			}
 			ctx.JSON(400, gin.H{
 				"error": message,
@@ -284,7 +288,7 @@ func tokenValidator(ctx *gin.Context) error {
 	token := ctx.Request.Header.Get("token")
 	if token != os.Getenv("TOKEN") {
 
-		return fmt.Errorf("Error: Token invalido.")
+		return fmt.Errorf(TokenError)
 
 	}
 	return nil
