@@ -1,7 +1,7 @@
 package internal
 
 import (
-	"backpack-bcgow6-franco-niz/go-web/practica4/TT/pkg/store"
+	"backpack-bcgow6-franco-niz/testing/practica2/TT/ej1/pkg/store"
 	"fmt"
 )
 
@@ -39,7 +39,10 @@ func (r *repository) GetAll() ([]Transaction, error) {
 
 func (r *repository) Store(id int, code, currency string, price float64, emmiter, receiver, date string) (Transaction, error) {
 	var ts []Transaction
-	r.db.Read(&ts)
+	err := r.db.Read(&ts)
+	if err != nil {
+		return Transaction{}, err
+	}
 	t := Transaction{id, code, currency, price, emmiter, receiver, date}
 	ts = append(ts, t)
 

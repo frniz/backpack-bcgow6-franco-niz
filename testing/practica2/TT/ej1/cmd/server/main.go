@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -43,5 +44,8 @@ func main() {
 	tr.PUT("/:id", t.Update())
 	tr.PATCH("/:id", t.PartialUpdate())
 	tr.DELETE("/:id", t.Delete())
-	r.Run()
+	err := r.Run()
+	if err != nil {
+		fmt.Println(err.Error())
+	}
 }
