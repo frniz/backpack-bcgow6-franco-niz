@@ -1,0 +1,83 @@
+[
+  {
+    "id": 3,
+    "code": "algunCodeNew",
+    "currency": "dolares",
+    "price": 405.2,
+    "emitter": "MeLi",
+    "receiver": "MeLi",
+    "date": "09/10"
+  },
+  {
+    "id": 5,
+    "code": "algunCode",
+    "currency": "dolares",
+    "price": 405.2,
+    "emitter": "MeLi",
+    "receiver": "MeLi",
+    "date": "09/10"
+  },
+  {
+    "id": 6,
+    "code": "algunCode",
+    "currency": "dolares",
+    "price": 405.2,
+    "emitter": "MeLi",
+    "receiver": "MeLi",
+    "date": "09/10"
+  },
+  {
+    "id": 7,
+    "code": "algunCode",
+    "currency": "dolares",
+    "price": 405.2,
+    "emitter": "MeLi",
+    "receiver": "MeLi",
+    "date": "09/10"
+  },
+  {
+    "id": 8,
+    "code": "algunCode",
+    "currency": "dolares",
+    "price": 405.2,
+    "emitter": "MeLi",
+    "receiver": "MeLi",
+    "date": "09/10"
+  },
+  {
+    "id": 9,
+    "code": "algunCode",
+    "currency": "dolares",
+    "price": 405.2,
+    "emitter": "MeLi",
+    "receiver": "MeLi",
+    "date": "09/10"
+  },
+  {
+    "id": 10,
+    "code": "algunCode",
+    "currency": "dolares",
+    "price": 405.2,
+    "emitter": "MeLi",
+    "receiver": "MeLi",
+    "date": "09/10"
+  },
+  {
+    "id": 11,
+    "code": "algunCode",
+    "currency": "dolares",
+    "price": 405.2,
+    "emitter": "MeLi",
+    "receiver": "MeLi",
+    "date": "09/10"
+  },
+  {
+    "id": 12,
+    "code": "algunCode",
+    "currency": "dolares",
+    "price": 405.2,
+    "emitter": "MeLi",
+    "receiver": "MeLi",
+    "date": "09/10"
+  }
+]
