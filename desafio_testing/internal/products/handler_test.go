@@ -78,7 +78,6 @@ func Test_GetProduct_error_repository(t *testing.T) {
 	params := req.URL.Query()
 	params.Add("seller_id", "FEX112AC")
 	req.URL.RawQuery = params.Encode()
-	//req.Header.Add("seller_id", "FEX112AC")
 
 	r.ServeHTTP(rr, req)
 
