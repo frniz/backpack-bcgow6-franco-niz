@@ -7,3 +7,11 @@
 4. Mostrar el nombre de todos los géneros y la cantidad total de películas por cada uno, siempre que sea mayor o igual a 3.
     SELECT g.name, count(*) FROM genres g INNER JOIN movies m ON g.id = m.genre_id GROUP BY g.name HAVING count(*)>=3
 5. Mostrar sólo el nombre y apellido de los actores que trabajan en todas las películas de la guerra de las galaxias y que estos no se repitan.
+    SELECT DISTINCT
+	ac.first_name AS 'nombre', 
+    ac.last_name  AS 'apellido'
+FROM actors ac 
+	JOIN actor_movie acmov ON ac.id=acmov.actor_id
+    JOIN movies mov ON mov.id=acmov.movie_id
+WHERE
+	mov.title LIKE "La Guerra de las Galaxias%"
