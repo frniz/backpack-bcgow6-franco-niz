@@ -1,0 +1,18 @@
+Seleccionar el nombre, el puesto y la localidad de los departamentos donde trabajan los vendedores.
+    SELECT nombre, puesto, departamento.localidad FROM empleado INNER JOIN departamento ON empleado.depto_nro=departamento.depto_nro
+Visualizar los departamentos con más de cinco empleados.
+Mostrar el nombre, salario y nombre del departamento de los empleados que tengan el mismo puesto que ‘Mito Barchuk’.
+    SELECT e.nombre, e.salario, d.nombre_depto FROM empleado e INNER JOIN departamento d ON d.depto_nro=e.depto_nro 
+	AND e.depto_nro=(SELECT depto_nro FROM empleado WHERE nombre="Mito" AND apellido="Barchuk") 
+	AND e.cod_emp != (SELECT cod_emp FROM empleado WHERE nombre="Mito" AND apellido="Barchuk")
+Mostrar los datos de los empleados que trabajan en el departamento de contabilidad, ordenados por nombre.
+    SELECT DISTINCT * FROM empleado e WHERE e.depto_nro=(SELECT depto_nro FROM departamento WHERE nombre_depto="Contabilidad")
+Mostrar el nombre del empleado que tiene el salario más bajo.
+    SELECT * FROM empleado
+    ORDER BY salario ASC
+    LIMIT 1
+Mostrar los datos del empleado que tiene el salario más alto en el departamento de ‘Ventas’.
+    SELECT * FROM empleado e
+    WHERE e.depto_nro=(SELECT depto_nro FROM departamento WHERE nombre_depto="Ventas")
+    ORDER BY salario DESC
+    LIMIT 1
