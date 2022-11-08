@@ -4,7 +4,6 @@ import (
 	"context"
 	"database/sql"
 	"errors"
-	"fmt"
 )
 
 const (
@@ -35,11 +34,10 @@ type Transaction struct {
 
 type Repository interface {
 	GetAll() ([]Transaction, error)
-	Store(id int, code, currency string, price float64, emmiter, receiver, date string) (Transaction, error)
-	Update(id int, code, currency string, price float64, emmiter, receiver, date string) (Transaction, error)
+	Store(code, currency string, price float64, emitter, receiver, date string) (int64, error)
+	Update(id int, code, currency string, price float64, emitter, receiver, date string) error
 	PartialUpdate(id int, code string, price float64) (Transaction, error)
 	Delete(id int) error
-	LastID() (int, error)
 }
 
 type repository struct {
@@ -52,17 +50,42 @@ func (r *repository) Exists(ctx context.Context, id int) bool {
 	return err == nil
 }
 
+func (r *repository) Get(id int64) (Transaction, error) {
+	row := r.db.QueryRow(GET_TRANSACTION, id)
+	var transaction Transaction
+	err := row.Scan(&transaction.ID, &transaction.Code, &transaction.Currency, &transaction.Price,
+		&transaction.Emitter, &transaction.Receiver, &transaction.Date)
+	if err != nil {
+		return Transaction{}, err
+	}
+	return transaction, nil
+}
+
 func (r *repository) GetAll() ([]Transaction, error) {
 
 	return nil, nil
 }
 
-func (r *repository) Store(id int, code, currency string, price float64, emmiter, receiver, date string) (Transaction, error) {
-	return Transaction{}, nil
-}
+func (r *repository) Store(code, currency string, price float64, emitter, receiver, date string) (int64, error) {
+	stm, err := r.db.Prepare(SAVE_TRANSACTION) //preparamos la consulta
+	if err != nil {
+		return 0, err
+	}
+	defer stm.Close()
 
-func (r *repository) LastID() (int, error) {
-	return 0, nil
+	//ejecutamos la consulta con aquellos valores a remplazar en la sentencia
+	result, err := stm.Exec(code, currency, price, emitter, receiver, date)
+	if err != nil {
+		return 0, err
+	}
+
+	//obtenemos el ultimo id
+	id, err := result.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+
+	return id, nil
 }
 
 func (r *repository) Update(id int, code, currency string, price float64, emitter, receiver, date string) error {
@@ -90,59 +113,11 @@ func (r *repository) Update(id int, code, currency string, price float64, emitte
 
 func (r *repository) PartialUpdate(id int, code string, price float64) (Transaction, error) {
 	var t Transaction
-	updated := false
-
-	ts, err := r.GetAll()
-	if err != nil {
-		return Transaction{}, fmt.Errorf("Hubo un error con la base de datos.")
-	}
-
-	for i := range ts {
-		if ts[i].ID == id {
-			ts[i].Code = code
-			ts[i].Price = price
-			t = ts[i]
-			if err := r.db.Write(ts); err != nil {
-				return Transaction{}, err
-			}
-			updated = true
-			break
-		}
-	}
-
-	if !updated {
-		return Transaction{}, fmt.Errorf("No se encontro la transaccion con ID: %d", id)
-	}
 
 	return t, nil
 }
 
 func (r *repository) Delete(id int) error {
-	deleted := false
-
-	var index int
-
-	var ts []Transaction
-	if err := r.db.Read(&ts); err != nil {
-		return err
-	}
-
-	for i := range ts {
-		if ts[i].ID == id {
-			index = i
-			deleted = true
-			break
-		}
-	}
-
-	if !deleted {
-		return fmt.Errorf("No se encontró la transacción con ID: %d", id)
-	}
-
-	ts = append(ts[:index], ts[index+1:]...)
-	if err := r.db.Write(ts); err != nil {
-		return err
-	}
 
 	return nil
 }
