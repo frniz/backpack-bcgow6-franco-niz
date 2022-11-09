@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	SAVE_TRANSACTION = "INSERT INTO transactions (id, code, currency, price, emitter, receiver, date) VALUES (?, ?, ?, ?, ?, ?, ?);"
+	SAVE_TRANSACTION = "INSERT INTO transactions (code, currency, price, emitter, receiver, date) VALUES (?, ?, ?, ?, ?, ?);"
 
 	GET_ALL_TRANSACTIONS = ""
 

@@ -14,6 +14,10 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
+const (
+	ENV_PATH = "../../.env"
+)
+
 // @title MELI Bootcamp API
 // @version 1.0
 // @description This API Handle MELI Products.
@@ -26,8 +30,14 @@ import (
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
 func main() {
-	_ = godotenv.Load()
-	r, db := store.ConnectDatabase()
+	err := godotenv.Load()
+	if err != nil {
+		panic(err)
+	}
+	r, db, err := store.ConnectDatabase()
+	if err != nil {
+		panic(err)
+	}
 	repo := transactions.NewRepository(db)
 	service := transactions.NewService(repo)
 	t := handler.NewTransaction(service)
@@ -38,6 +48,7 @@ func main() {
 	tr := r.Group("/transactions")
 	tr.POST("/", t.Store())
 	tr.GET("/", t.GetAll())
+	tr.GET("/:id", t.Get())
 	tr.PUT("/:id", t.Update())
 	tr.PATCH("/:id", t.PartialUpdate())
 	tr.DELETE("/:id", t.Delete())

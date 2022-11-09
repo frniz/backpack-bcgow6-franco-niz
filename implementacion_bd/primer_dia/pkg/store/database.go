@@ -2,7 +2,7 @@ package store
 
 import (
 	"database/sql"
-	"log"
+	"errors"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -10,10 +10,10 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func ConnectDatabase() (engine *gin.Engine, db *sql.DB) {
-	err := godotenv.Load()
+func ConnectDatabase() (engine *gin.Engine, db *sql.DB, err error) {
+	err = godotenv.Load()
 	if err != nil {
-		log.Fatal("Error: Loading .env")
+		return nil, nil, errors.New("error: Loading .env")
 	}
 
 	configDB := mysql.Config{
@@ -26,10 +26,10 @@ func ConnectDatabase() (engine *gin.Engine, db *sql.DB) {
 
 	db, err = sql.Open("mysql", configDB.FormatDSN())
 	if err != nil {
-		log.Fatal(err)
+		return nil, nil, errors.New("error configurando la DB")
 	}
 
 	engine = gin.Default()
 
-	return engine, db
+	return engine, db, nil
 }

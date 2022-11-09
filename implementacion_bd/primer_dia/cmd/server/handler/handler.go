@@ -56,9 +56,35 @@ func (c *Transaction) GetAll() gin.HandlerFunc {
 
 		if len(t) == 0 {
 			ctx.JSON(http.StatusNotFound, web.NewResponse(http.StatusNotFound, nil, web.NotElements))
+			return
 		}
 
 		ctx.JSON(http.StatusOK, web.NewResponse(http.StatusOK, t, ""))
+	}
+}
+
+func (c *Transaction) Get() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		if err := tokenValidator(ctx); err != nil {
+			ctx.JSON(http.StatusUnauthorized, web.NewResponse(http.StatusUnauthorized, nil, web.InvalidToken))
+			return
+
+		}
+
+		id, err := strconv.ParseInt(ctx.Param("id"), 10, 64)
+		if err != nil {
+			ctx.JSON(400, gin.H{
+				"error": "ID invalido",
+			})
+			return
+		}
+
+		t, err := c.service.Get(id)
+		if err != nil {
+			ctx.JSON(http.StatusOK, web.NewResponse(http.StatusBadGateway, nil, err.Error()))
+		}
+		ctx.JSON(http.StatusOK, web.NewResponse(http.StatusOK, t, ""))
+
 	}
 }
 
@@ -282,7 +308,7 @@ func (c *Transaction) Delete() gin.HandlerFunc {
 
 func tokenValidator(ctx *gin.Context) error {
 	token := ctx.Request.Header.Get("token")
-	if token != os.Getenv("TOKEN") {
+	if token != os.Getenv("MY_TOKEN") {
 
 		return fmt.Errorf("error: token invalido")
 
