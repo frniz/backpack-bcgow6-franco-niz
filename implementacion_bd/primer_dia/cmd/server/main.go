@@ -3,13 +3,12 @@ package main
 import (
 	"os"
 
-	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 
-	handler "backpack-bcgow6-franco-niz/go-web/practica4/TT/cmd/server/handler"
-	"backpack-bcgow6-franco-niz/go-web/practica4/TT/docs"
-	transactions "backpack-bcgow6-franco-niz/go-web/practica4/TT/internal/transactions"
-	"backpack-bcgow6-franco-niz/go-web/practica4/TT/pkg/store"
+	handler "backpack-bcgow6-franco-niz/implementacion_bd/primer_dia/cmd/server/handler"
+	"backpack-bcgow6-franco-niz/implementacion_bd/primer_dia/docs"
+	transactions "backpack-bcgow6-franco-niz/implementacion_bd/primer_dia/internal/transactions"
+	"backpack-bcgow6-franco-niz/implementacion_bd/primer_dia/pkg/store"
 
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -28,11 +27,10 @@ import (
 
 func main() {
 	_ = godotenv.Load()
-	db := store.New(store.FileType, "./transactions.json")
+	r, db := store.ConnectDatabase()
 	repo := transactions.NewRepository(db)
 	service := transactions.NewService(repo)
 	t := handler.NewTransaction(service)
-	r := gin.Default()
 
 	docs.SwaggerInfo.Host = os.Getenv("HOST")
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

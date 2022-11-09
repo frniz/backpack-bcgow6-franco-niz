@@ -1,8 +1,8 @@
 package handler
 
 import (
-	transactions "backpack-bcgow6-franco-niz/go-web/practica4/TT/internal/transactions"
-	"backpack-bcgow6-franco-niz/go-web/practica4/TT/pkg/web"
+	transactions "backpack-bcgow6-franco-niz/implementacion_bd/primer_dia/internal/transactions"
+	"backpack-bcgow6-franco-niz/implementacion_bd/primer_dia/pkg/web"
 	"fmt"
 	"net/http"
 	"os"
@@ -84,11 +84,11 @@ func (c *Transaction) Store() gin.HandlerFunc {
 		if err := ctx.ShouldBindJSON(&req); err != nil {
 			var message string
 			if req.Code == "" {
-				message = message + fmt.Sprintf("El campo Code es requerido. ")
+				message = message + "El campo Code es requerido. "
 			}
 
 			if req.Price == 0 {
-				message = message + fmt.Sprintf("El campo Price es requerido. ")
+				message = message + "El campo Price es requerido. "
 			}
 
 			ctx.JSON(400, web.NewResponse(400, nil, message))
@@ -97,16 +97,16 @@ func (c *Transaction) Store() gin.HandlerFunc {
 
 		var message string
 		if req.Currency == "" {
-			message = message + fmt.Sprintf("El campo Currency es requerido. ")
+			message = message + "El campo Currency es requerido. "
 		}
 		if req.Emitter == "" {
-			message = message + fmt.Sprintf("El campo Emitter es requerido. ")
+			message = message + "El campo Emitter es requerido. "
 		}
 		if req.Receiver == "" {
-			message = message + fmt.Sprintf("El campo Receiver es requerido. ")
+			message = message + "El campo Receiver es requerido. "
 		}
 		if req.Date == "" {
-			message = message + fmt.Sprintf("El campo Date es requerido. ")
+			message = message + "El campo Date es requerido. "
 		}
 		if message != "" {
 			ctx.JSON(400, web.NewResponse(400, nil, message))
@@ -153,11 +153,11 @@ func (c *Transaction) Update() gin.HandlerFunc {
 		if err := ctx.ShouldBindJSON(&req); err != nil {
 			var message string
 			if req.Code == "" {
-				message = message + fmt.Sprintf("El campo Code es requerido. ")
+				message = message + "El campo Code es requerido. "
 			}
 
 			if req.Price == 0 {
-				message = message + fmt.Sprintf("El campo Price es requerido. ")
+				message = message + "El campo Price es requerido. "
 			}
 
 			ctx.String(400, message)
@@ -166,29 +166,29 @@ func (c *Transaction) Update() gin.HandlerFunc {
 
 		var message string
 		if req.Currency == "" {
-			message = message + fmt.Sprintf("El campo Currency es requerido. ")
+			message = message + "El campo Currency es requerido. "
 		}
 		if req.Emitter == "" {
-			message = message + fmt.Sprintf("El campo Emitter es requerido. ")
+			message = message + "El campo Emitter es requerido. "
 		}
 		if req.Receiver == "" {
-			message = message + fmt.Sprintf("El campo Receiver es requerido. ")
+			message = message + "El campo Receiver es requerido. "
 		}
 		if req.Date == "" {
-			message = message + fmt.Sprintf("El campo Date es requerido. ")
+			message = message + "El campo Date es requerido. "
 		}
 		if message != "" {
 			ctx.String(400, message)
 			return
 		}
 
-		t, err := c.service.Update(int(id), req.Code, req.Currency, req.Price, req.Emitter, req.Receiver, req.Date)
+		err = c.service.Update(int(id), req.Code, req.Currency, req.Price, req.Emitter, req.Receiver, req.Date)
 		if err != nil {
 			ctx.JSON(http.StatusNotFound, err.Error())
 			return
 		}
 
-		ctx.JSON(http.StatusOK, t)
+		ctx.JSON(http.StatusOK, req)
 	}
 }
 
@@ -222,10 +222,10 @@ func (c *Transaction) PartialUpdate() gin.HandlerFunc {
 		if err := ctx.ShouldBindJSON(&req); err != nil {
 			var message string
 			if req.Code == "" {
-				message = message + fmt.Sprintf("El campo Code es requerido. ")
+				message = message + "El campo Code es requerido. "
 			}
 			if req.Price == 0 {
-				message = message + fmt.Sprintf("El campo Price es requerido. ")
+				message = message + "El campo Price es requerido. "
 			}
 			ctx.JSON(400, gin.H{
 				"error": message,
@@ -284,7 +284,7 @@ func tokenValidator(ctx *gin.Context) error {
 	token := ctx.Request.Header.Get("token")
 	if token != os.Getenv("TOKEN") {
 
-		return fmt.Errorf("Error: Token invalido.")
+		return fmt.Errorf("error: token invalido")
 
 	}
 	return nil
