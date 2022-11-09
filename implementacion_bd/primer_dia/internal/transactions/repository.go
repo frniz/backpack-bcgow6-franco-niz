@@ -34,6 +34,8 @@ type Transaction struct {
 
 type Repository interface {
 	GetAll() ([]Transaction, error)
+	Get(id int64) (Transaction, error)
+	GetOne(code string) (Transaction, error)
 	Store(code, currency string, price float64, emitter, receiver, date string) (int64, error)
 	Update(id int, code, currency string, price float64, emitter, receiver, date string) error
 	PartialUpdate(id int, code string, price float64) (Transaction, error)
@@ -58,6 +60,19 @@ func (r *repository) Get(id int64) (Transaction, error) {
 	if err != nil {
 		return Transaction{}, err
 	}
+	return transaction, nil
+}
+
+func (r *repository) GetOne(code string) (Transaction, error) {
+	row := r.db.QueryRow(GET_ONE_TRANSACTION, code)
+	var transaction Transaction
+	err := row.Scan(&transaction.ID, &transaction.Code, &transaction.Currency, &transaction.Price,
+		&transaction.Emitter, &transaction.Receiver, &transaction.Date)
+
+	if err != nil {
+		return Transaction{}, err
+	}
+
 	return transaction, nil
 }
 
