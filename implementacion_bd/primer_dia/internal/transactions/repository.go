@@ -9,7 +9,7 @@ import (
 const (
 	SAVE_TRANSACTION = "INSERT INTO transactions (code, currency, price, emitter, receiver, date) VALUES (?, ?, ?, ?, ?, ?);"
 
-	GET_ALL_TRANSACTIONS = ""
+	GET_ALL_TRANSACTIONS = "SELECT * FROM transactions"
 
 	GET_TRANSACTION = "SELECT * FROM transactions WHERE id=?;"
 
@@ -77,8 +77,26 @@ func (r *repository) GetOne(code string) (Transaction, error) {
 }
 
 func (r *repository) GetAll() ([]Transaction, error) {
+	rows, err := r.db.Query(GET_ALL_TRANSACTIONS)
+	if err != nil {
+		return nil, err
+	}
 
-	return nil, nil
+	var transactions []Transaction
+
+	i := 0
+	for rows.Next() {
+		var t Transaction
+		err := rows.Scan(&t.ID, &t.Code, &t.Currency, &t.Price,
+			&t.Emitter, &t.Receiver, &t.Date)
+		if err != nil {
+			return nil, err
+		}
+		transactions = append(transactions, t)
+		i++
+	}
+
+	return transactions, nil
 }
 
 func (r *repository) Store(code, currency string, price float64, emitter, receiver, date string) (int64, error) {
