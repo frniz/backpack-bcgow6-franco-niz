@@ -23,25 +23,18 @@ func (s *service) GetAll() ([]Transaction, error) {
 	return rep, nil
 }
 
-func (s *service) GetOne()
-func (s *service) Store(code, currency string, price float64, emmiter, receiver, date string) (Transaction, error) {
-	lastID, err := s.repository.LastID()
-	if err != nil {
-		return Transaction{}, err
-	}
-
-	lastID++
-
-	transaction, err := s.repository.Store(lastID, code, currency, price, emmiter, receiver, date)
-
-	if err != nil {
-		return Transaction{}, err
-	}
-
-	return transaction, nil
+func (s *service) Get(id int64) (Transaction, error) {
+	return s.repository.Get(id)
 }
 
-func (s *service) Update(id int, code, currency string, price float64, emmiter, receiver, date string) (Transaction, error) {
+func (s *service) GetOne(code string) (Transaction, error) {
+	return s.repository.GetOne(code)
+}
+func (s *service) Store(code, currency string, price float64, emitter, receiver, date string) (int64, error) {
+	return s.repository.Store(code, currency, price, emitter, receiver, date)
+}
+
+func (s *service) Update(id int, code, currency string, price float64, emmiter, receiver, date string) error {
 
 	return s.repository.Update(id, code, currency, price, emmiter, receiver, date)
 }
