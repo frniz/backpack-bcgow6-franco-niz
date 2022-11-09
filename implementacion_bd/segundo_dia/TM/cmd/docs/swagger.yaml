@@ -1,0 +1,89 @@
+definitions:
+  handler.request:
+    properties:
+      code:
+        type: string
+      currency:
+        type: string
+      date:
+        type: string
+      emitter:
+        type: string
+      id:
+        type: integer
+      price:
+        type: number
+      receiver:
+        type: string
+    required:
+    - code
+    - price
+    type: object
+  web.Response:
+    properties:
+      code:
+        type: string
+      data: {}
+      error:
+        type: string
+    type: object
+info:
+  contact:
+    name: Franco Niz
+    url: https://developers.mercadolibre.com.ar/support
+  description: This API Handle MELI Products.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://developers.mercadolibre.com.ar/es_ar/terminos-y-condiciones
+  title: MELI Bootcamp API
+  version: "1.0"
+paths:
+  /transactions:
+    get:
+      consumes:
+      - application/json
+      description: get transactions
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.Response'
+      summary: List transactions
+      tags:
+      - Transactions
+    post:
+      consumes:
+      - application/json
+      description: delete transactions
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: Transaction to delete
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/handler.request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.Response'
+      summary: Delete transactions
+      tags:
+      - Transactions
+swagger: "2.0"
