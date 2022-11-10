@@ -5,10 +5,10 @@ import (
 
 	"github.com/joho/godotenv"
 
-	handler "backpack-bcgow6-franco-niz/implementacion_bd/primer_dia/cmd/server/handler"
-	"backpack-bcgow6-franco-niz/implementacion_bd/primer_dia/docs"
-	transactions "backpack-bcgow6-franco-niz/implementacion_bd/primer_dia/internal/transactions"
-	"backpack-bcgow6-franco-niz/implementacion_bd/primer_dia/pkg/store"
+	handler "backpack-bcgow6-franco-niz/implementacion_bd/segundo_dia/TT/cmd/server/handler"
+	"backpack-bcgow6-franco-niz/implementacion_bd/segundo_dia/TT/docs"
+	transactions "backpack-bcgow6-franco-niz/implementacion_bd/segundo_dia/TT/internal/transactions"
+	"backpack-bcgow6-franco-niz/implementacion_bd/segundo_dia/TT/pkg/store"
 
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"

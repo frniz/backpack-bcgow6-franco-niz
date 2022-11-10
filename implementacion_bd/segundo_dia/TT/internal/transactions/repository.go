@@ -9,17 +9,17 @@ import (
 const (
 	SAVE_TRANSACTION = "INSERT INTO transactions (code, currency, price, emitter, receiver, date) VALUES (?, ?, ?, ?, ?, ?);"
 
-	GET_ALL_TRANSACTIONS = "SELECT * FROM transactions"
+	GET_ALL_TRANSACTIONS = "SELECT id, code, currency, price, emitter, receiver, date FROM transactions"
 
-	GET_TRANSACTION = "SELECT * FROM transactions WHERE id=?;"
+	GET_TRANSACTION = "SELECT id, code, currency, price, emitter, receiver, date FROM transactions WHERE id=?;"
 
-	GET_ONE_TRANSACTION = "SELECT * FROM transactions WHERE code=?"
+	GET_ONE_TRANSACTION = "SELECT id, code, currency, price, emitter, receiver, date FROM transactions WHERE code=?"
 
 	UPDATE_TRANSACTION = "UPDATE transactions SET code=?, currency=?, price=?, emitter=?, receiver=?, date=? WHERE id=?;"
 
-	DELETE_TRANSACTION = ""
+	DELETE_TRANSACTION = "DELETE FROM transactions WHERE id=?"
 
-	EXIST_TRANSACTION = "SELECT m.id FROM movies m WHERE m.id=?"
+	EXIST_TRANSACTION = "SELECT id FROM transactions m WHERE id=?"
 )
 
 type Transaction struct {
@@ -151,8 +151,20 @@ func (r *repository) PartialUpdate(id int, code string, price float64) (Transact
 }
 
 func (r *repository) Delete(id int) error {
+	stmt, err := r.db.Prepare(DELETE_TRANSACTION) // se prepara la sentencia SQL a ejecutar
+	if err != nil {
+		return err
+	}
+	defer stmt.Close() // se cierra la sentencia al terminar. Si quedan abiertas se genera consumos de memoria
+
+	_, err = stmt.Exec(id) // retorna un sql.Result y un error
+
+	if err != nil {
+		return err
+	}
 
 	return nil
+
 }
 
 func NewRepository(db *sql.DB) Repository {

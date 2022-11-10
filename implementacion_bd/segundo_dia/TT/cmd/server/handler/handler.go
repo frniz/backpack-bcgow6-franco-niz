@@ -1,8 +1,8 @@
 package handler
 
 import (
-	transactions "backpack-bcgow6-franco-niz/implementacion_bd/primer_dia/internal/transactions"
-	"backpack-bcgow6-franco-niz/implementacion_bd/primer_dia/pkg/web"
+	transactions "backpack-bcgow6-franco-niz/implementacion_bd/segundo_dia/TT/internal/transactions"
+	"backpack-bcgow6-franco-niz/implementacion_bd/segundo_dia/TT/pkg/web"
 	"fmt"
 	"net/http"
 	"os"
